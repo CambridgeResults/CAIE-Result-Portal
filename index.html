@@ -5,75 +5,139 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Candidate Results</title>
 <style>
-  :root{
-    --panel-blue:#0b66b3;
-    --panel-bg:#eaf3ff;
-    --card:#fff;
-    --muted:#4b5563;
+  :root {
+    --panel-blue: #0b66b3;
+    --panel-bg: #eaf3ff;
+    --card: #fff;
+    --muted: #4b5563;
   }
-  html,body{height:100%;margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;background:#f7f9fb}
-  .wrap{max-width:1000px;margin:28px auto;padding:18px}
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Segoe UI, Roboto, Arial, sans-serif;
+    background: #f7f9fb;
+  }
+  .wrap {
+    max-width: 1000px;
+    margin: 28px auto;
+    padding: 18px;
+  }
 
   /* big blue panel like screenshot */
-  .blue-panel{
-    background:var(--panel-blue);
-    color:white;
-    padding:28px 22px;
-    border-radius:4px;
-    box-shadow:0 3px 0 rgba(0,0,0,0.04) inset;
+  .blue-panel {
+    background: var(--panel-blue);
+    color: white;
+    padding: 28px 22px;
+    border-radius: 4px;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.04) inset;
   }
-  .panel-inner{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    max-width:900px;
-    margin:auto;
-  }
-
-  .left-col{flex:1}
-  .headline{font-size:20px;font-weight:700;margin:0 0 10px}
-  .sub{font-size:15px;margin:6px 0 14px;color:rgba(255,255,255,0.95)}
-
-  .form-row{display:flex; align-items:center; gap:10px}
-  label{
-    width:110px;
-    text-align:left;
-    font-weight:700;
-    font-size:15px;
-  }
-  .inputs{flex:1; display:flex; flex-direction:column; gap:12px;}
-  input[type="text"], input[type="password"]{
-    padding:10px 12px;
-    border-radius:3px;
-    border:1px solid #d1e3fb;
-    width:100%;
-    font-size:15px;
+  .panel-inner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    max-width: 900px;
+    margin: auto;
   }
 
-  .right-col{min-width:110px; display:flex; align-items:center; justify-content:flex-end}
-  .login-btn{
-    background:#f3f5f7; color:#063358; border:none; padding:10px 18px; border-radius:3px; font-weight:700; cursor:pointer;
-    font-size:15px;
+  .left-col {
+    flex: 1;
   }
-  .login-btn:active{transform:translateY(1px)}
+  .headline {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  .sub {
+    font-size: 15px;
+    margin: 6px 0 14px;
+    color: rgba(255,255,255,0.95);
+  }
+
+  .form-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  label {
+    width: 110px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .inputs {
+    flex: 1;
+  }
+  input[type="text"], input[type="password"] {
+    padding: 10px 12px;
+    border-radius: 3px;
+    border: 1px solid #d1e3fb;
+    font-size: 15px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .right-col {
+    display: flex;
+    align-items: center;
+  }
+  .login-btn {
+    background: #f3f5f7;
+    color: #063358;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 3px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  .login-btn:active {
+    transform: translateY(1px);
+  }
 
   /* bottom friendly text */
-  .below{color:rgba(255,255,255,0.95); margin-top:18px; font-size:14px}
+  .below {
+    color: rgba(255,255,255,0.95);
+    margin-top: 18px;
+    font-size: 14px;
+  }
 
   /* result area */
-  .result-wrap{max-width:900px;margin:18px auto; display:none}
-  .result-card{background:white;border:1px solid #dceafc;padding:18px;border-radius:4px}
-  .notfound{color:#b82b2b;font-weight:800;font-size:18px}
-  .explain{color:var(--muted); margin-top:8px}
+  .result-wrap {
+    max-width: 900px;
+    margin: 18px auto;
+    display: none;
+  }
+  .result-card {
+    background: white;
+    border: 1px solid #dceafc;
+    padding: 18px;
+    border-radius: 4px;
+  }
+  .notfound {
+    color: #b82b2b;
+    font-weight: 800;
+    font-size: 18px;
+  }
+  .explain {
+    color: var(--muted);
+    margin-top: 8px;
+  }
 
   /* image */
-  .surprise{margin-top:14px; display:none; text-align:center}
-  .surprise img{max-width:380px;border-radius:6px;border:1px solid #cfdff5}
+  .surprise {
+    margin-top: 14px;
+    display: none;
+    text-align: center;
+  }
+  .surprise img {
+    max-width: 380px;
+    border-radius: 6px;
+    border: 1px solid #cfdff5;
+  }
 
-  @media (max-width:760px){
-    .panel-inner{flex-direction:column; align-items:stretch}
-    label{width:100%}
-    .right-col{justify-content:flex-start}
+  @media (max-width: 760px) {
+    .panel-inner { flex-direction: column; align-items: stretch; }
+    label { width: 100%; }
+    .right-col { justify-content: flex-start; }
   }
 </style>
 </head>
@@ -89,17 +153,12 @@
             <div class="inputs">
               <input id="username" type="text" placeholder="" aria-label="Username (as provided by your centre)">
             </div>
-            <div class="right-col" style="display:none"></div>
           </div>
 
           <div class="form-row" style="margin-top:10px;">
             <label for="password">Password:</label>
-            <div class="inputs">
+            <div class="inputs" style="display:flex; gap:10px;">
               <input id="password" type="password" placeholder="" aria-label="Password">
-            </div>
-
-            <!-- login button aligned to right (like screenshot) -->
-            <div class="right-col">
               <button class="login-btn" id="loginBtn">login</button>
             </div>
           </div>
@@ -112,7 +171,6 @@
     <!-- result area (hidden until login) -->
     <div id="resultWrap" class="result-wrap" aria-live="polite">
       <div class="result-card">
-
         <!-- surprise image (change src to your image file name) -->
         <div class="surprise" id="surpriseDiv">
           <img id="surpriseImg" src="my_photo.jpg" alt="Surprise" />
@@ -140,6 +198,7 @@
     }, 600);
   });
 </script>
+
 <footer style="font-size: 12px; color: #555; text-align: center; margin-top: 50px; padding: 20px; border-top: 1px solid #ccc;">
     Cambridge International Education is the name of our awarding body and a part of Cambridge University Press & Assessment, 
     but you may know us as Cambridge. See our Legal Notice for more information.
@@ -149,16 +208,17 @@
     <br><br>
     These terms were last updated August 2025.
     <br><br>
-    © 2025 Cambridge University Press & Assessment
+    ©️ 2025 Cambridge University Press & Assessment
     <br>
     Version 3.0.2-SNAPSHOT
 </footer>
-  <footer style="font-size: 11px; color: #666; text-align: center; margin-top: 40px; padding: 15px; border-top: 1px solid #ccc; font-family: Arial, Helvetica, sans-serif; background-color: #f7f7f7;">
+
+<footer style="font-size: 11px; color: #666; text-align: center; margin-top: 40px; padding: 15px; border-top: 1px solid #ccc; font-family: Arial, Helvetica, sans-serif; background-color: #f7f7f7;">
     <!-- Your Logo -->
     <img src="mylogo.png" alt="My Logo" style="height: 40px; margin-bottom: 10px;">
 
     <p style="margin: 5px 0;">
-        © 2025 My Organization. All rights reserved.
+        ©️ 2025 My Organization. All rights reserved.
     </p>
     <p style="margin: 5px 0;">
         My Organization is part of the My Education Group.
